@@ -2,6 +2,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
+import FontSizeScale from './FontSizeScale';
 
 const fadeInAnimation = keyframes`${fadeIn}`;
 
@@ -18,7 +19,7 @@ const LogContainer = styled.div`
   flex: 0;
   white-space: pre-wrap;
   font-family: 'menloregular';
-  font-size: 13px;
+  font-size: ${({ fontSizeScale = 1 }) => fontSizeScale * 13}px;
   color: #fff;
 `;
 
@@ -43,13 +44,20 @@ class Log extends React.PureComponent {
   }
   render() {
     return (
-      <LogScroller
-        innerRef={c => {
-          this.scroller = c;
-        }}
-      >
-        <LogContainer dangerouslySetInnerHTML={createMarkup(this.props.log)} />
-      </LogScroller>
+      <FontSizeScale
+        render={({ scale }) => (
+          <LogScroller
+            innerRef={c => {
+              this.scroller = c;
+            }}
+          >
+            <LogContainer
+              fontSizeScale={scale}
+              dangerouslySetInnerHTML={createMarkup(this.props.log)}
+            />
+          </LogScroller>
+        )}
+      />
     );
   }
 }

@@ -133,12 +133,10 @@ app.on('ready', async () => {
    */
 
   globalShortcut.register('CmdOrCtrl+=', () => {
-    // Increase font size
-    console.log('Increase font size');
+    mainWindow.webContents.send('increase-font-size');
   });
 
   globalShortcut.register('CmdOrCtrl+-', () => {
-    // Decrease font size
-    console.log('Decrease font size');
+    mainWindow.webContents.send('decrease-font-size');
   });
 });
